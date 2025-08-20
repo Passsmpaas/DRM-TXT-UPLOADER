@@ -4,7 +4,7 @@ services:
     plan: free
     env: docker
     dockerfilePath: Dockerfile
-    repo: 
+    repo: https://github.com/Soninkuwal/DRM-TXT-UPLOADER
     branch: main
     autoDeploy: false
     envVars:
