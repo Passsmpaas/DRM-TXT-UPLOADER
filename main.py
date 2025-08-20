@@ -151,8 +151,14 @@ caption = (
 # Start command handler
 @bot.on_message(filters.command(["start"]))
 async def start_command(bot: Client, message: Message):
-    await bot.send_photo(chat_id=message.chat.id, photo=random_image_url, caption=caption, reply_markup=keyboard)
-    
+    try:
+        # Try sending the image from URL
+        await bot.send_photo(chat_id=message.chat.id, photo=random_image_url, caption=caption, reply_markup=keyboard)
+    except Exception as e:
+        print(f"[Telegram] Failed to send URL {random_image_url}, sending local fallback. Error: {e}")
+        # Use local image as fallback
+        await bot.send_photo(chat_id=message.chat.id, photo=open("fallback.jpg", "rb"), caption=caption, reply_markup=keyboard)
+
 # Stop command handler
 @bot.on_message(filters.command("stop"))
 async def restart_handler(_, m: Message):
